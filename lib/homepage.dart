@@ -111,45 +111,53 @@ class Dahsboard extends StatelessWidget {
               Expanded(
                 child: TabBarView(children: [
                   //                                                            TAB 1
-                  Container(
-                    child: ListView(
-                      padding: const EdgeInsets.all(8),
-                      children: <Widget> [
-                        Padding(padding: EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 40,
-                            padding: EdgeInsets.only(left: 6.0),
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            child: Text("Meja 1"),
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 40,
-                            padding: EdgeInsets.only(left: 6.0),
-                            decoration: BoxDecoration(
+                  Scaffold(
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () {
+                        //                                                      FUNGSI FLOAT BUTTON
+                      },
+                      child: const Icon(Icons.add),
+                    ),
+                    body: Container(
+                      child: ListView(
+                        padding: const EdgeInsets.all(8),
+                        children: <Widget> [
+                          Padding(padding: EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 40,
+                              padding: EdgeInsets.only(left: 6.0),
+                              decoration: BoxDecoration(
                                 color: Colors.blue,
                                 borderRadius: BorderRadius.circular(10.0)
+                              ),
+                              child: Text("Meja 1"),
                             ),
-                            child: Text("Meja 2"),
                           ),
-                        ),
-                        Padding(padding: EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 40,
-                            padding: EdgeInsets.only(left: 6.0),
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10.0)
+                          Padding(padding: EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 40,
+                              padding: EdgeInsets.only(left: 6.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(10.0)
+                              ),
+                              child: Text("Meja 2"),
                             ),
-                            child: Text("Meja 3"),
                           ),
-                        ),
-                      ],
-                    )
+                          Padding(padding: EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 40,
+                              padding: EdgeInsets.only(left: 6.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(10.0)
+                              ),
+                              child: Text("Meja 3"),
+                            ),
+                          ),
+                        ],
+                      )
+                    ),
                   ),
                   //                                                            TAB 2
                   Container(

@@ -9,7 +9,7 @@ class HistoryTab extends StatelessWidget {
       backgroundColor: const Color(0xfff1dea0),
       appBar: AppBar(
         centerTitle: true,
-        title: Text('RIWAYAT'),
+        title: Text('RIWAYAT', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
       ),
       body: Column(
         children: [
@@ -59,9 +59,11 @@ class HistoryTab extends StatelessWidget {
             ),
           ],
             indicator: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(20)
+              color: Color(0xffd6961f),
+              borderRadius: BorderRadius.circular(20),
             ),
+            labelColor: Colors.white,
+            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Expanded(
             child: TabBarView(children: [

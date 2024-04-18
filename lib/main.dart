@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'homepage.dart';
+
 void main() {
-  runApp(const Tabbar());
+  runApp(Login());
 }
 
 class Login extends StatelessWidget {
@@ -45,6 +47,7 @@ class Login extends StatelessWidget {
                     backgroundColor: Colors.blueAccent,
                   ),
                     onPressed: (){
+                    runApp(MyApp());
                     /*-FUNGSI BUTTON-*/
                     },
                     child: const Text('Login')),)
@@ -58,49 +61,3 @@ class Login extends StatelessWidget {
   }
 }
 //              END LOGIN -> DASHBOARD BEGIN
-class Tabbar extends StatelessWidget {
-  const Tabbar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Dahsboard(),
-      theme: ThemeData(primarySwatch: Colors.yellow),
-    );
-  }
-}
-
-class Dahsboard extends StatelessWidget {
-  const Dahsboard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          body: Column(
-            children: [
-              TabBar(
-              tabs: [
-                Tab(
-                  text: "Ditempat",
-                ),
-                Tab(
-                  text: "Katering",
-                ),
-              ],
-              ),
-              TabBarView(children: [
-                Container(
-                  child: ,
-                )
-              ])
-            ],
-          ),
-        )
-    );
-  }
-}
-
-

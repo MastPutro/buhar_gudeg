@@ -17,25 +17,31 @@ class Login extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Center(
           child: Container(
-            height: 515,
+            height: 551,
             width: 600,
             color: Colors.white,
             child: Column(
               children: <Widget> [
                 Image.asset('images/icon.png', width: 300, ),
                 Text('Username :', style: TextStyle(fontSize: 20.0),),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Input Username',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Input Username',
 
+                    ),
                   ),
                 ),
                 Text('Password :', style: TextStyle(fontSize: 20.0),),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Input Password',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Input Password',
+                    ),
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(20.0),

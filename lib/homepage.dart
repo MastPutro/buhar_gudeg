@@ -39,6 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Color(0xff312e32),
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: [
@@ -98,20 +101,42 @@ class Dahsboard extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
-              TabBar(
-                tabs: [
-                  Tab(
-                    icon: Icon(Icons.store_mall_directory),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.delivery_dining),
-                  ),
-                ],
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0xfff0ac2c)
+                ),
+                child: TabBar(
+                  indicatorColor: Colors.grey,
+                  labelColor: Colors.black,
+                  tabs: [
+                    Tab(
+                      icon: Container(
+                        constraints: BoxConstraints(
+                          minWidth: double.infinity
+                        ),
+                        child: Icon(
+                            Icons.store_mall_directory
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      icon: Container(
+                        constraints: BoxConstraints(
+                          minWidth: double.infinity
+                        ),
+                        child: Icon(
+                            Icons.delivery_dining
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Expanded(
                 child: TabBarView(children: [
                   //                                                            TAB 1
                   Scaffold(
+                    backgroundColor: Color(0xfff1dea0),
                     floatingActionButton: FloatingActionButton(
                       onPressed: () {
                         //                                                      FUNGSI FLOAT BUTTON

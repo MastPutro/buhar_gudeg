@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import 'homepage.dart';
@@ -6,8 +7,28 @@ void main() {
   runApp(Login());
 }
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+  }
+ @override
+  void dispose(){
+    super.dispose();
+    password.dispose();
+    username.dispose();
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -15,49 +36,71 @@ class Login extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-          child: Container(
-            height: 551,
-            width: 600,
-            color: Colors.white,
+        body: Form(
+          key: _formKey,
+          child: Center(
             child: Column(
-              children: <Widget> [
-                Image.asset('images/icon.png', width: 300, ),
-                Text('Username :', style: TextStyle(fontSize: 20.0),),
+              children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Input Username',
-
-                    ),
-                  ),
+                  padding: const EdgeInsets.only(top: 40, left: 8, right: 8),
+                  child: Image.asset('images/icon.png', width: 300, ),
                 ),
-                Text('Password :', style: TextStyle(fontSize: 20.0),),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Padding(padding: EdgeInsets.all(8),
                   child: TextField(
+                    controller: username,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Input Password',
+                        border: OutlineInputBorder(),
+                        labelText: 'Username'
                     ),
-                  ),
-                ),
-                Padding(padding: EdgeInsets.all(20.0),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.all(20.0),
-                    textStyle: const TextStyle(fontSize: 20),
-                    backgroundColor: Colors.blueAccent,
-                  ),
-                    onPressed: (){
-                    runApp(MyApp());
-                    /*-FUNGSI BUTTON-*/
-                    },
-                    child: const Text('Login')),)
-                
+                  ),),
+                Padding(padding: EdgeInsets.all(8),
+                  child: TextField(
+                    controller: password,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Password'
+                    ),
+                  ),),
+                Padding(padding: EdgeInsets.all(8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color(0xFF0D47A1),
+                                  Color(0xFF1976D2),
+                                  Color(0xFF42A5F5),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Map creds = {
+                              'email' : username.text,
+                              'password' : password.text,
+                              'device' : 'mobile',
+                            };
+                            if (username != null && password != null) {
+                             print(creds);
+                             runApp(MyApp());
+                            }
+                          },
+                          child: const Text('Login'),
+                        ),
+                      ],
+                    ),
+                  ),)
               ],
             ),
           ),
@@ -66,4 +109,5 @@ class Login extends StatelessWidget {
     );
   }
 }
-//              END LOGIN
+
+

@@ -6,10 +6,10 @@ class HistoryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(length: 3, child: Scaffold(
-      backgroundColor: const Color(0xfff1dea0),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: Text('RIWAYAT', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+        title: Text('History', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
       ),
       body: Column(
         children: [
@@ -59,11 +59,11 @@ class HistoryTab extends StatelessWidget {
             ),
           ],
             indicator: BoxDecoration(
-              color: Color(0xffd6961f),
+              color: Color(0xff3092f3),
               borderRadius: BorderRadius.circular(20),
             ),
             labelColor: Colors.white,
-            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
           Expanded(
             child: TabBarView(children: [
@@ -77,7 +77,7 @@ class HistoryTab extends StatelessWidget {
                         height: 60,
                         padding: EdgeInsets.only(left: 7),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Color(0xffd7d7d7),
                           borderRadius: BorderRadius.all(Radius.circular(10))
                         ),
                       ),
@@ -87,7 +87,7 @@ class HistoryTab extends StatelessWidget {
                         height: 60,
                         padding: EdgeInsets.only(left: 7),
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Color(0xffc7c7c7),
                             borderRadius: BorderRadius.all(Radius.circular(10))
                         ),
                       ),

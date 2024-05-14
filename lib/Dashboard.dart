@@ -1,21 +1,23 @@
-import 'dart:convert';
-
-import 'package:buhar_gudeg/Order/AddOrder.dart';
 import 'package:flutter/material.dart';
+import 'Order/AddOrder.dart';
+import 'Order/OrderDetail.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';// Import the new detail screen
 
 class Item {
   final int id;
   final String name;
-  final DateTime timestamp; // Tambahkan variabel timestamp
+  final String parse;
+  final DateTime timestamp;
 
-  Item({required this.id, required this.name, required this.timestamp});
+  Item({required this.id, required this.name, required this.parse, required this.timestamp});
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
       id: json['id'],
       name: json['harga'],
-      timestamp: DateTime.parse(json['created_at']), // Ubah timestamp menjadi DateTime
+      parse: json['parse'],
+      timestamp: DateTime.parse(json['created_at']),
     );
   }
 }
@@ -28,7 +30,6 @@ class Dashboard extends StatefulWidget {
 class _MyAppState extends State<Dashboard> {
   List<Item> items = [];
 
-  // Panggil API dan simpan datanya
   Future<void> fetchItems() async {
     final response = await http.get(Uri.parse('http://192.168.1.3:8000/api/order'));
     if (response.statusCode == 200) {
@@ -99,15 +100,30 @@ class _MyAppState extends State<Dashboard> {
                       child: const Icon(Icons.add),
                     ),
                     body: Container(
-                        child: ListView.builder(
-                          itemCount: items.length,
-                          itemBuilder: (context, index) {
-                            return Padding(padding: EdgeInsets.all(8),
+                      child: ListView.builder(
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              runApp(OrderDetail(id: items[index].id, name: items[index].name, parse: items[index].parse));
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => OrderDetail(
+                              //       id: items[index].id,
+                              //       name: items[index].name,
+                              //       parse: items[index].parse,
+                              //     ),
+                              //   ),
+                              // );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
                               child: Container(
                                 height: 56,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffe3e3e3)
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color(0xffe3e3e3)
                                 ),
                                 child: Column(
                                   children: [
@@ -123,14 +139,15 @@ class _MyAppState extends State<Dashboard> {
                                     Padding(
                                       padding: const EdgeInsets.only(right: 8),
                                       child: Align( alignment: Alignment.bottomRight,
-                                      child: Text(items[index].timestamp.toString())),
+                                          child: Text(items[index].timestamp.toString())),
                                     )
                                   ],
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                   //                                                            TAB 2

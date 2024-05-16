@@ -43,7 +43,7 @@ class _MyAppState extends State<AddOrder> {
   List<TextEditingController> counterControllers = [];
 
   Future<void> fetchItems() async {
-    final response = await http.get(Uri.parse('http://192.168.1.3:8000/api/menu'));
+    final response = await http.get(Uri.parse('http://depotbuhar.com/api/menu'));
     if (response.statusCode == 200) {
       setState(() {
         Iterable list = json.decode(response.body);
@@ -63,15 +63,26 @@ class _MyAppState extends State<AddOrder> {
       }
     }
 
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    };
-    var request = http.Request('POST', Uri.parse('http://192.168.1.3:8000/api/order?harga=12334'));
-    request.bodyFields = {
-      'harga': totalPrice.toString(),
-      'parse': jsonEncode(orders.map((order) => order.toJson()).toList())
-    };
-    request.headers.addAll(headers);
+    // var headers = {
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // };
+    // var request = http.Request('POST', Uri.parse('http://depotbuhar.com/api/order/store?harga=12334'));
+    // request.bodyFields = {
+    //   'harga': totalPrice.toString(),
+    //   'parse': jsonEncode(orders.map((order) => order.toJson()).toList())
+    // };
+    // request.headers.addAll(headers);
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   print(await response.stream.bytesToString());
+    // }
+    // else {
+    //   print(response.reasonPhrase);
+    // }
+    var request = http.Request('POST', Uri.parse('https://depotbuhar.com/api/order/store?harga=${totalPrice.toString()}&parse=${jsonEncode(orders.map((order) => order.toJson()).toList())}'));
+
 
     http.StreamedResponse response = await request.send();
 

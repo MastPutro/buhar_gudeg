@@ -22,6 +22,33 @@ class Item {
   }
 }
 
+class ItemCat {
+  final int id;
+  final String foodname;
+  final int price;
+  final int quantity;
+  final String name;
+  final String address;
+
+  ItemCat(
+      {required this.id,
+      required this.foodname,
+      required this.price,
+      required this.quantity,
+      required this.name,
+      required this.address});
+  factory ItemCat.fromJson(Map<String, dynamic> json){
+    return ItemCat(
+      id: json['id'],
+      foodname: json['foodname'],
+      price: json['price'],
+      quantity: json['quantity'],
+      name: json['name'],
+      address: json['address'],
+    );
+  }
+}
+
 class Dashboard extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -29,9 +56,10 @@ class Dashboard extends StatefulWidget {
 
 class _MyAppState extends State<Dashboard> {
   List<Item> items = [];
+  List<ItemCat> cats = [];
 
   Future<void> fetchItems() async {
-    final response = await http.get(Uri.parse('http://192.168.1.3:8000/api/order'));
+    final response = await http.get(Uri.parse('http://depotbuhar.com/api/order'));
     if (response.statusCode == 200) {
       setState(() {
         Iterable list = json.decode(response.body);
@@ -39,6 +67,18 @@ class _MyAppState extends State<Dashboard> {
       });
     } else {
       throw Exception('Failed to load items');
+    }
+  }
+
+  Future<void> fetchCats() async {
+    final response = await http.get(Uri.parse('https://depotbuhar.com/api/catering'));
+    if(response.statusCode == 200){
+      setState(() {
+        Iterable list = json.decode(response.body);
+        cats = list.map((model) => ItemCat.fromJson(model)).toList();
+      });
+    } else {
+      throw Exception('Failed to load Cats');
     }
   }
 
@@ -131,6 +171,12 @@ class _MyAppState extends State<Dashboard> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 8),
                                         child: Row(children: [
+                                          Text(items[index].id.toString(), style: TextStyle(fontSize: 20),)
+                                        ],),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8),
+                                        child: Row(children: [
                                           Text('Rp. ', style: TextStyle(fontSize: 20)),
                                           Text(items[index].name, style: TextStyle(fontSize: 20),)
                                         ],),
@@ -152,44 +198,23 @@ class _MyAppState extends State<Dashboard> {
                   ),
                   //                                                            TAB 2
                   Container(
-                      child: ListView(
-                        padding: const EdgeInsets.all(8),
-                        children: <Widget> [
-                          Padding(padding: EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 6.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: Text("Ryan"),
+                      child: ListView.builder(itemCount: cats.length, itemBuilder: (context, index) {
+                        return Padding(padding: EdgeInsets.all(8),
+                          child: Container(
+                            height: 54,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xffe3e3e3)
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Text('${cats[index].id}. ${cats[index].name}')
+
+                              ],
                             ),
                           ),
-                          Padding(padding: EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 6.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: Text("Edi"),
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 6.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: Text("Arya"),
-                            ),
-                          ),
-                        ],
-                      )
+                        );
+                      })
                   )
                 ]),
               )

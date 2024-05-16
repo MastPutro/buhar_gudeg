@@ -1,7 +1,57 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../homepage.dart';
+
+// showAlertDialog(BuildContext context, String url) {
+//
+//
+//   // set up the buttons
+//   Widget cancelButton = TextButton(
+//     child: Text("Cancel"),
+//     onPressed:  () {
+//
+//     },
+//   );
+//   Widget continueButton = TextButton(
+//     child: Text("Delete"),
+//     onPressed:  () async {
+//       var request = http.Request('DELETE', Uri.parse('https://depotbuhar.com/api/order/delete/${widget.id}'));
+//       request.bodyFields = {};
+//
+//       http.StreamedResponse response = await request.send();
+//
+//       if (response.statusCode == 200) {
+//         print(await response.stream.bytesToString());
+//       }
+//       else {
+//       print(response.reasonPhrase);
+//       }
+//
+//     },
+//   );
+//
+//   // set up the AlertDialog
+//   AlertDialog alert = AlertDialog(
+//     title: Text("Delete Order"),
+//     content: Text("do you want to delete this order?"),
+//     actions: [
+//       cancelButton,
+//       continueButton,
+//     ],
+//   );
+
+//   // show the dialog
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return alert;
+//     },
+//   );
+// }
+
+ 
 
 class OrderDetail extends StatefulWidget {
   final int id;
@@ -9,6 +59,7 @@ class OrderDetail extends StatefulWidget {
   final String parse;
 
   OrderDetail({required this.id, required this.name, required this.parse});
+
 
   @override
   State<OrderDetail> createState() => _OrderDetailState();
@@ -28,7 +79,7 @@ class _OrderDetailState extends State<OrderDetail> {
     List<Map<String, dynamic>> fetchedItems = [];
 
     for (var item in itemList) {
-      var response = await http.get(Uri.parse('http://192.168.1.3:8000/api/menu/${item['item_id']}'));
+      var response = await http.get(Uri.parse('http://depotbuhar.com/api/menu/${item['item_id']}'));
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         fetchedItems.add({
@@ -47,6 +98,9 @@ class _OrderDetailState extends State<OrderDetail> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+
+        },child: Icon(Icons.delete, color: Colors.white,),),
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           leading: IconButton(
@@ -54,6 +108,21 @@ class _OrderDetailState extends State<OrderDetail> {
             onPressed: () => runApp(MyApp()),
           ),
           title: Text('Order Detail'),
+        ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: Colors.blue
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextButton(onPressed: () {
+
+            }, child: Text('Print Tax'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
+              ),
+            ),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -76,7 +145,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
                       child: Text(
-                        'Title: ${item['title']}, Price: ${item['price']}',
+                        'Title: ${item['title']}, Price: ${item['price']}, Quantity:',
                         style: TextStyle(fontSize: 18),
                       ),
                     );
